@@ -1,0 +1,38 @@
+<div class="container">
+  <h1>Manage Orders</h1>
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
+  <table>
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Items</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each orders}}
+        <tr>
+          <td>{{user.username}}</td>
+          <td>
+            <ul>
+              {{#each foodItems}}
+                <li>{{food.name}} (x{{quantity}})</li>
+              {{/each}}
+            </ul>
+          </td>
+          <td>{{status}}</td>
+          <td>
+            {{#if_eq status 'pending'}}
+              <form action="/admin/orders/{{_id}}/confirm" method="POST">
+                <button type="submit" class="btn">Conifrm Order</button>
+              </form>
+            {{/if_eq}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

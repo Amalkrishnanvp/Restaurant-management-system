@@ -1,0 +1,20 @@
+<header class="navbar">
+    <div class="logo">Restaurant</div>
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/menu">Menu</a></li>
+        {{#if_eq session.role "admin"}}
+            <li><a href="/admin">Admin Dashboard</a></li>
+            <li><a href="/admin/users">Manage Users</a></li>
+            <li><a href="/admin/add-food">Add Food</a></li>
+            <li><a href="/admin/orders">Manage Orders</a></li>
+        {{/if_eq}}
+        {{#if session.userId}}
+            <li><a href="/user">Profile</a></li>
+            <li><a href="/logout">Logout</a></li>
+        {{else}}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        {{/if}}
+    </ul>
+</header>

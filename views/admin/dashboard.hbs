@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Admin Dashboard</h1>
+  {{#if error}}
+  <p class="error">{{error}}</p>
+  {{/if}}
+  <p>Welcome, Admin! Manage the restaurant:</p>
+  <ul>
+    <li><a href="/admin/users">Manage Users</a></li>
+    <li><a href="/admin/add-food">Add Food Item</a></li>
+    <li><a href="/admin/orders">Manage Orders</a></li>
+  </ul>
+
+  <h2>Notifications</h2>
+  {{#if notifications}}
+  <ul>
+    {{#each notifications}}
+    <li class="{{#if this.isRead}}read{{else}}unread{{/if}}">
+      {{this.message}}
+      {{#unless this.isRead}}
+      <form action="/admin/notifications/{{this._id}}/read" method="POST" style="display:inline;">
+        <button type="submit" class="btn" style="background-color: #007bff;">Mark as Read</button>
+      </form>
+      {{/unless}}
+    </li>
+    {{/each}}
+  </ul>
+  {{else}}
+  <p>No notifications.</p>
+  {{/if}}
+</div>

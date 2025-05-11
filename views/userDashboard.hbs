@@ -1,0 +1,59 @@
+<div class="container">
+    <h1>User Dashboard</h1>
+    {{#if error}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+    <p style="text-align:center">Welcome! View the <a href="/menu">menu</a> to place an order.</p>
+
+    <h2>Notifications</h2>
+    {{#if notifications}}
+    <ul>
+        {{#each notifications}}
+        <li class="{{#if this.isRead}}read{{else}}unread{{/if}}">
+            {{this.message}}
+            {{#unless this.isRead}}
+            <form action="/user/notifications/{{this._id}}/read" method="POST" style="display:inline;">
+                <button type="submit" class="btn" style="background-color: #007bff;">Mark as Read</button>
+            </form>
+            {{/unless}}
+        </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <p>No notifications.</p>
+    {{/if}}
+
+    <h2>Your Orders</h2>
+    {{#if orders}}
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Items</th>
+                <th>Total Price</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each orders}}
+            <tr>
+                <td>{{this._id}}</td>
+                <td>
+                    <ul>
+                        {{#each this.foodItems}}
+                        <li>{{this.food.name}} (x{{this.quantity}})</li>
+                        {{/each}}
+                    </ul>
+                </td>
+                <td>${{this.totalPrice}}</td>
+                <td>{{this.status}}</td>
+                <td>{{this.createdAt}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+    <p>No orders found.</p>
+    {{/if}}
+</div>

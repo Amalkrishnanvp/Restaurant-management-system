@@ -1,0 +1,37 @@
+<div class="container">
+    <h1>Manage Users</h1>
+    {{#if error}}
+    <p class="error">{{error}}</p>
+    {{/if}}
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td>{{this.username}}</td>
+                <td>
+                    <ul>
+                        {{#each ../orders}}
+                        {{#if_eq this.user._id ../this._id}}
+                        <li>
+                            Order #{{_id}} - Status: {{status}}
+                            <ul>
+                                {{#each foodItems}}
+                                <li>{{food.name}} (x{{quantity}})</li>
+                                {{/each}}
+                            </ul>
+                        </li>
+                        {{/if_eq}}
+                        {{/each}}
+                    </ul>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
